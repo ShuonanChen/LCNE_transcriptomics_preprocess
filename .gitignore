@@ -57,6 +57,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 *scratch*
+notebook/*scratch*
 
 # Translations
 *.mo
