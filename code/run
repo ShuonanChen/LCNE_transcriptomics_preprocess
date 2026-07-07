@@ -11,29 +11,43 @@ mkdir -p /results/figures /scratch
 # Link output to results for notebook compatibility
 ln -sf /results /code/output 2>/dev/null || true
 
-# Notebooks must be in /code directory to be included in reproducible runs
-# Paths are relative to /code (working directory)
-# Order matters: snRNA notebooks first (generate gene lists), then MERFISH/Retro notebooks (use gene lists)
-NOTEBOOKS=(
-    "notebooks/snRNAseq/01_remove_chromosomal_XY.ipynb"
-    "notebooks/snRNAseq/02_snRNA_batchcorrection.ipynb"
-    "notebooks/merfish/MERFISH_preprocess.ipynb"
-    "notebooks/retroseq/00_b_create_adata_from_raw.ipynb"
-)
-
-# Run each notebook
-for notebook in "${NOTEBOOKS[@]}"; do
+# Helper to execute a single notebook in place.
+# Optional 2nd arg sets the INCLUDE_MER env var for parameterized notebooks.
+run_notebook() {
+    local notebook="$1"
+    local include_mer="${2:-}"
     echo ""
-    echo ">>> Executing: $notebook"
+    if [[ -n "$include_mer" ]]; then
+        echo ">>> Executing: $notebook (INCLUDE_MER=$include_mer)"
+    else
+        echo ">>> Executing: $notebook"
+    fi
     if [[ -f "$notebook" ]]; then
-        jupyter nbconvert --to notebook --execute --inplace \
-            --ExecutePreprocessor.timeout=600 "$notebook"
+        INCLUDE_MER="$include_mer" jupyter nbconvert --to notebook --execute --inplace \
+            --ExecutePreprocessor.timeout=3600 "$notebook"
         echo "✓ Completed: $notebook"
     else
         echo "ERROR: File not found: $notebook"
         exit 1
     fi
-done
+}
+
+# Notebooks must be in /code directory to be included in reproducible runs
+# Paths are relative to /code (working directory)
+# Order matters: snRNA notebooks first (generate gene lists), then MERFISH/Retro notebooks (use gene lists)
+
+# 01: remove chromosomal XY genes
+run_notebook "notebooks/snRNAseq/01_remove_chromosomal_XY.ipynb"
+
+# 02: batch correction — run twice to generate both outputs:
+#   INCLUDE_MER=False -> snRNAseq_LCNE_BN_d4_1-5k.h5ad
+#   INCLUDE_MER=True  -> snRNAseq_LCNE_BN_d4_merbar_1-5k.h5ad
+run_notebook "notebooks/snRNAseq/02_snRNA_batchcorrection.ipynb" "False"
+run_notebook "notebooks/snRNAseq/02_snRNA_batchcorrection.ipynb" "True"
+
+# downstream notebooks (use gene lists)
+run_notebook "notebooks/merfish/MERFISH_preprocess.ipynb"
+run_notebook "notebooks/retroseq/create_adata_from_raw.ipynb"
 
 echo ""
 echo "=== All notebooks completed successfully !!!==="
