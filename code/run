@@ -32,10 +32,7 @@ run_notebook() {
     fi
 }
 
-# Notebooks must be in /code directory to be included in reproducible runs
-# Paths are relative to /code (working directory)
 # Order matters: snRNA notebooks first (generate gene lists), then MERFISH/Retro notebooks (use gene lists)
-
 # 01: remove chromosomal XY genes
 run_notebook "notebooks/snRNAseq/01_remove_chromosomal_XY.ipynb"
 

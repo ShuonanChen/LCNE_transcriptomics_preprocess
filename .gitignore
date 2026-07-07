@@ -159,4 +159,5 @@ dmypy.json
 .vscode
 
 # Local notebook playground copy
-/code/notebook/snRNAseq/rds2h5*.R
+code/notebook/snRNAseq/rds2h5*.R
+code/notebooks/outdated/
