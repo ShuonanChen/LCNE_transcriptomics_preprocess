@@ -6,6 +6,7 @@ for three complementary modalities and produces the harmonized, quality-controll
 datasets used in the downstream analyses of the associated study.
 
 Developed at the Allen Institute for Neural Dynamics.
+This is the Github link: https://github.com/AllenNeuralDynamics/LCNE_transcriptomics_preprocess
 
 ## Overview
 
@@ -25,25 +26,18 @@ The stages run in a fixed order because the single-nucleus stage defines the gen
 consumed by the spatial and retro-seq stages.
 
 ### 1. snRNA-seq
-- Remove sex-chromosome (X/Y) genes while retaining mitochondrial genes.
-- Quality-control filtering of all cells.
-- Highly variable gene selection and clustering.
-- Batch correction and denoised, batch-averaged normalized expression via
-  [scVI](https://scvi-tools.org). The batch-correction step is run both with and without
-  the MERFISH gene panel to produce the two gene spaces used downstream.
+
+**`01_remove_chromosomal_XY.ipynb`** — queries the MyGene API to annotate each gene's chromosome; marks X/Y genes for removal in the next step.
+
+**`02_snRNA_batchcorrection.ipynb`** — drops X/Y genes, selects highly variable genes, and integrates across sex batches with scVI. Run twice via the `INCLUDE_MER` flag: once without and once with the MERFISH gene panel, producing the two gene spaces used by downstream modalities.
 
 ### 2. MERFISH
-- Apply inverse registration from the pre-existing conversion matrix to align cells to the
-  reference coordinate framework.
-- Batch processing across imaging runs, doublet removal, and batch correction.
-- Filter to the target neuronal populations.
+
+**`MERFISH_preprocess.ipynb`** — registers each section image to the Allen CCF, assembles per-section cell coordinates and counts into an AnnData, runs scVI batch correction across imaging sessions, then filters to LC-NE clusters (high `Dbh`/`Th`/`Slc6a2`).
 
 ### 3. Retro-seq
-- Donor whitelist and per-donor injection-target / sequencing-run annotation.
-- Pre-QC count floors on genes and cells, followed by QC filtering on gene counts,
-  mitochondrial fraction, and ribosomal fraction.
-- Low-resolution clustering to retain the LC-NE / neuronal population.
-- Batch normalization and export of the filtered dataset.
+
+**`create_adata_from_raw.ipynb`** — builds AnnData from raw MTX/TSV inputs, applies donor whitelist, QC filters (gene count, mitochondrial fraction, ribosomal fraction), low-resolution clustering to isolate the LC-NE neuronal population, and exports the filtered dataset.
 
 ## Repository structure
 
@@ -66,7 +60,7 @@ results/                      Generated outputs (AnnData files and figures)
 | Mount / path | Format | Origin |
 |---|---|---|
 | `snRNAseq_LCNE` | `.h5ad` | Output of the upstream snRNA-seq processing pipeline |
-| `retroseq` (under `data/`) | `.tsv` files | Output of the same upstream pipeline |
+| `retroseq` (under `data/`) | `.tsv`/`.csv`/`.mtx` count matrix + `.h5ad` | Output of the same upstream pipeline |
 | `Nardone_2024_merfish_processing` | mixed | See note below |
 
 **`Nardone_2024_merfish_processing` — important:**
@@ -77,7 +71,15 @@ results/                      Generated outputs (AnnData files and figures)
 
 ### Outputs
 
-Written to `results/`: batch-corrected `.h5ad` objects for each modality and QC figures under `results/figures/`.
+| File | Description |
+|---|---|
+| `snRNAseq_LCNE_with_chrom.h5ad` | Intermediate: snRNA with per-gene chromosome annotation (notebook 01 → input to 02) |
+| `results/snRNAseq/snRNAseq_LCNE_BN_d4_1-5k.h5ad` | Batch-corrected snRNA — standard gene set |
+| `results/snRNAseq/snRNAseq_LCNE_BN_d4_merbar_1-5k.h5ad` | Batch-corrected snRNA — MERFISH panel genes included |
+| `registered_{slice}.csv` (per section) | Intermediate: CCF-registered cell coordinates for each MERFISH section |
+| `results/adata_mer_subset_2_2k.h5ad` | Filtered MERFISH AnnData (LC-NE clusters only) |
+| `results/retroseq/retroseq_updated_filtered.h5ad` | Filtered retroseq AnnData (LC-NE neurons only) |
+| `results/figures/` | QC plots for each modality |
 
 ## Reproducing the results
 
