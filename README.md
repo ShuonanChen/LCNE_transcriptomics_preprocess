@@ -61,14 +61,23 @@ results/                      Generated outputs (AnnData files and figures)
 
 ## Data
 
-Inputs are provided as attached datasets and files under `data/`:
+### Inputs
 
-- **snRNA-seq** counts and metadata (`snRNAseq_LCNE`).
-- **MERFISH** processing inputs (`Nardone_2024_merfish_processing`).
-- **Retro-seq** raw count matrix and BARseq counts (`data/`).
+| Mount / path | Format | Origin |
+|---|---|---|
+| `snRNAseq_LCNE` | `.h5ad` | Output of the upstream snRNA-seq processing pipeline |
+| `retroseq` (under `data/`) | `.tsv` files | Output of the same upstream pipeline |
+| `Nardone_2024_merfish_processing` | mixed | See note below |
 
-Outputs are written to `results/`, including the batch-corrected `.h5ad` objects for each
-modality and QC figures under `results/figures/`.
+**`Nardone_2024_merfish_processing` — important:**
+- Contains **two distinct components**:
+  1. **Original MERFISH data** from Nardone et al. (2024) — raw/unregistered, not aligned to CCF.
+  2. **CCF registration results** produced by this lab — spatial coordinates mapped to the Allen Common Coordinate Framework.
+- Source publication: Nardone et al. (2024), *Nature Communications* — https://www.nature.com/articles/s41467-024-45907-7
+
+### Outputs
+
+Written to `results/`: batch-corrected `.h5ad` objects for each modality and QC figures under `results/figures/`.
 
 ## Reproducing the results
 
