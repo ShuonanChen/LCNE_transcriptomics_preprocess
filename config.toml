@@ -1,0 +1,11 @@
+# Data-asset mount prefixes.
+#
+# Code Ocean mounts each attached data asset under data/<mount>. When an asset is
+# re-created it gets a fresh timestamp suffix (e.g. LCNE-...-from-R_2026-07-08_11-11-11),
+# so we store only the stable *prefix* here and let utils.get_paths() glob-match the
+# actual mounted directory. To swap in a different data asset, attach it in
+# .codeocean/datasets.json and update the prefix below — nothing in the notebooks changes.
+
+transcriptomics_dataset = "LCNE-transcriptomics-preprocessing-from-R_2026-07-08_11-11-11"
+# LCNE-transcriptomics-preprocessing-from-R_2026-07-08_11-11-11
+merfish_dataset = "Nardone_2024_merfish_processing"
