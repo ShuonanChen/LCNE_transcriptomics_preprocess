@@ -6,8 +6,8 @@
 			"mount": "Nardone_2024_merfish_processing"
 		},
 		{
-			"id": "df5e4b72-294b-41cd-b0c5-e6722e7d0b1a",
-			"mount": "snRNAseq_LCNE"
+			"id": "9b928b21-b5ae-4cab-90e7-ec68e78a327c",
+			"mount": "LCNE-transcriptomics-preprocessing-from-R_2026-07-08_11-11-11"
 		}
 	]
 }
