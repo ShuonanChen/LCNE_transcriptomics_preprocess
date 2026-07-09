@@ -24,6 +24,7 @@ RUN pip install mygene
 RUN pip install scikit-image
 RUN pip install toml
 RUN pip install opencv-python
+RUN pip install aind-data-schema
 
 ADD "https://github.com/coder/code-server/releases/download/v4.100.3/code-server-4.100.3-linux-amd64.tar.gz" /.code-server/code-server.tar.gz
 	

@@ -10,7 +10,7 @@ This is the Github link: https://github.com/AllenNeuralDynamics/LCNE_transcripto
 
 ## Overview
 
-The pipeline processes three data modalities and integrates them on a shared gene space:
+Runs for about 26min. The pipeline processes three data modalities and integrates them on a shared gene space:
 
 1. **snRNA-seq** — single-nucleus RNA sequencing of LC-NE neurons.
 2. **MERFISH** — spatially resolved transcriptomics.
@@ -68,6 +68,7 @@ results/                      Generated outputs (AnnData files and figures)
   1. **Original MERFISH data** from Nardone et al. (2024) — raw/unregistered, not aligned to CCF.
   2. **CCF registration results** produced by this lab — spatial coordinates mapped to the Allen Common Coordinate Framework.
 - Source publication: Nardone et al. (2024), *Nature Communications* — https://www.nature.com/articles/s41467-024-45907-7
+- **AIND metadata:** [`code/add_metadata.py`](code/add_metadata.py) assembles the full asset (data + `data_description.json` + `processing.json`, recording the external source and the lab-added CCF registration) into its own subfolder `results/Nardone_2024_merfish_processing/`, kept out of the top level of `results/` so it doesn't mix with pipeline outputs. Create the new Code Ocean data asset from that subfolder, then transfer it to `aind-open-data` before publication.
 
 ### Outputs
 
