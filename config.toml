@@ -6,6 +6,8 @@
 # actual mounted directory. To swap in a different data asset, attach it in
 # .codeocean/datasets.json and update the prefix below — nothing in the notebooks changes.
 
-transcriptomics_dataset = "LCNE-transcriptomics-preprocessing-from-R_2026-07-08_11-11-11"
-# LCNE-transcriptomics-preprocessing-from-R_2026-07-08_11-11-11
+# Stable prefix (no full timestamp): utils.get_paths() glob-matches "<prefix>*",
+# so a re-created asset like ..._2026-07-08_11-11-11 still resolves. If several match,
+# the most recent (lexicographically last) wins.
+transcriptomics_dataset = "LCNE-transcriptomics-preprocessing-from-R_202"
 merfish_dataset = "Nardone_2024_merfish_processing"
