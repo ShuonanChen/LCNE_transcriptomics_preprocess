@@ -10,7 +10,7 @@ This is the Github link: https://github.com/AllenNeuralDynamics/LCNE_transcripto
 
 ## Overview
 
-Runs for about 26min. The pipeline processes three data modalities and integrates them on a shared gene space:
+Runs for about 25-30min. The pipeline processes three data modalities and integrates them on a shared gene space:
 
 1. **snRNA-seq** — single-nucleus RNA sequencing of LC-NE neurons.
 2. **MERFISH** — spatially resolved transcriptomics.
