@@ -64,6 +64,7 @@ def get_paths(verbose: bool = False) -> dict:
     config["retroseq_raw"] = transcriptomics_root / "retroseqdata_raw_from_R"
 
     config["result"] = root_path / "results" / "merfish"
+    config["result_snrna"] = root_path / "results" / "snRNAseq"
     if verbose:
         print(config)
     return config
