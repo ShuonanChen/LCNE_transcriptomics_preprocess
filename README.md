@@ -96,20 +96,22 @@ snRNA-seq stage first, as it produces the gene lists used by the other stages.
 
 ## Citation
 
-If you use this pipeline or the derived datasets, please cite the associated publication
+If you use this pipeline or the derived datasets, please cite the associated preprint
 and the Allen Institute for Neural Dynamics.
 
-```
-@article{xxxx,
-  title   = {Topographic structure and function of locus coeruleus
-norepinephrine neurons},
-  author  = {Zhixiao Su},
-  journal = {xxx},
-  volume  = {xx},
-  number  = {xx},
-  pages   = {xxx},
-  year    = {xxx},
-  publisher = {xxx}
+> Su, Z., Kosillo, P., Jung, K., Chen, S., ..., Siegle, J., & Cohen, J. Y. (2026).
+> *Topographic structure and function of locus coeruleus norepinephrine neurons.*
+> bioRxiv. https://doi.org/10.64898/2026.04.10.717727
+
+```bibtex
+@article{su2026topographic,
+  title     = {Topographic structure and function of locus coeruleus norepinephrine neurons},
+  author    = {Su, Z. and Kosillo, P. and Jung, K. and Chen, S. and Summers, M. T. and Piet, A. and Hou, H. and Hagihara, K. M. and Friedmann, D. and Ho-Shing, O. and Becker, M. I. and Chartrand, T. and Grotz, P. and Hilton-VanOsdall, E. and Lee, M. and Javeri, R. and Tuggle, S. L. and Ouellette, N. and Myers, H. and Laiton, C. and Wulf, K. and Rohde, J. and Buccino, A. P. and Arshadi, C. and Wang, D. and Seshamani, S. and Vasquez, S. and Eng, C. M. and Ollerenshaw, D. R. and Dee, N. and Casper, T. and Ho, W. and Jungert, M. and Jordan, A. and Phillips, E. and Chakka, A. B. and Nasirova, K. and Blake, K. and McCutcheon, A. and Koch, M. and Vergara, M. C. and Smith, K. A. and Jarsky, T. and Lusk, N. and Rue, M. C. P. and Chen, X. and Siegle, J. and Cohen, J. Y.},
+  journal   = {bioRxiv},
+  year      = {2026},
+  doi       = {10.64898/2026.04.10.717727},
+  url       = {https://www.biorxiv.org/content/10.64898/2026.04.10.717727v1},
+  publisher = {Cold Spring Harbor Laboratory}
 }
 ```
 
